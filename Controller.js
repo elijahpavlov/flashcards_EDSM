@@ -5,20 +5,51 @@ class Controller {
   }
 
   run() {
-    // Просим экземпляр класса модели прочитать папку со всеми темами и составить меню.
-    // Попутно передаем метод контроллера this.printTopicsController,
-    // так как нам нужно отправить сформинованное меню на вывод в экземпляр класса view
-    // после того, как завершится асинхронная операция чтения папки
-    // Здесь this.printTopicsController — является callback'ом  
-    this.model.readTopics(this.printTopicsController)
+    this.model.getTopics("./topics")
+                                .then(files => this.printTopicsController(files))
   }
 
-  printTopicsController(topicsMenu) {
-    // Тут нужно попросить экземпляр класса view вывести меню пользователю, 
-    // а также дождаться ответа последнего
+  printTopicsController(files) {
+    this.view.topics(files).then(topic =>{
+      this.model.read(`${"./topics/"}${topic}`).then(questions => {
+        this.model.questions = questions
+
+        this.askQuestion(questions[this.view.i]).then(x => {
+          this.askQuestion(questions[this.view.i]).then(x => {
+            this.askQuestion(questions[this.view.i]).then(x => {
+              this.askQuestion(questions[this.view.i]).then(x => {
+                this.askQuestion(questions[this.view.i]).then(x => {
+                  this.askQuestion(questions[this.view.i]).then(x => {
+                    this.askQuestion(questions[this.view.i]).then(x => {
+                      this.askQuestion(questions[this.view.i]).then(x => {
+                        return x
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
+        
+
+      })
+    })
   }
 
-  
+  askQuestion(obj){
+    return new Promise ((resolve, reject) => {
+      this.view.question(obj).then(answer => {
+        if (answer === obj.a) {
+          this.view.result(true)
+        } else {
+          console.log('\nПравильный ответ: ' + obj.a)
+          this.view.result(false)
+        }
+        return resolve('next')
+      })
+    })
+  }
 }
 
 module.exports = Controller

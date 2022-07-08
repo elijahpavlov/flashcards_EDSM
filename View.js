@@ -1,40 +1,42 @@
 const { rawListeners } = require("process");
 const readline = require("readline");
 const Model = require("./Model");
-readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
 
 class View {
-  constructor(data) {
-    this.data = data;
+  constructor(i = 0) {
+    this.i = i
   }
   topics(topicsArr) {
     return new Promise((resolve, reject) => {
-      readline.question("Выберите тему:\n" + topicsArr.join("\n"), (answer) => {
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+      });
+      rl.question(("Выберите тему:\n\n" + topicsArr.join("\n") + '\n\n'), (answer) => {
         resolve(answer);
+        rl.close()
       });
     });
   }
 
-  question({ a }) {
+  question({ q }) {
     return new Promise((resolve, reject) => {
-      readline.question(a + "\n", (answer) => {
+      this.i++
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+      });
+      rl.question(q + "\n", (answer) => {
         resolve(answer);
+        rl.close()
       });
     });
   }
 
   result(bolean) {
-    if (bolean === true) console.log("Ай, Красавчик!");
-    else console.log("Ну ты мамонт...");
+    if (bolean === true) console.log("\nАй, Красавчик!\n");
+    else console.log("\nНу ты мамонт...\n");
   }
 }
-
-const view = new View();
-const model = new Model();
-view.topics(model.getTopics("./topics"));
-view.question(model.read("./topics/nighthawk_flashcard_data.txt"));
 
 module.exports = View;
