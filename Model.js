@@ -31,7 +31,7 @@ class Model {
   }
 }
 
-const model = new Model()
-model.read('./topics/nighthawk_flashcard_data.txt').then(x => console.log(x))
-model.getTopics('./topics').then(x => console.log(x))
+// const model = new Model()
+// model.read('./topics/nighthawk_flashcard_data.txt').then(x => console.log(x))
+// model.getTopics('./topics').then(x => console.log(x))
 module.exports = Model
