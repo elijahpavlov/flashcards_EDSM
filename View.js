@@ -1,24 +1,35 @@
-// const readline = require("readline");
-// const Model = require("./Model");
-// readline.createInterface(
-//   input: process.stdin,
-//   output: process.stdout,
-// )
+const { rawListeners } = require("process");
+const readline = require("readline");
+const Model = require("./Model");
+readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 class View {
   constructor(data) {
     this.data = data;
   }
   topics(topicsArr) {
-    console.log("Выберите тему:\n");
-    console.log(topicsArr.join("\n"));
+    return new Promise((resolve, reject) => {
+      readline.question("Выберите тему:\n", (answer) => {
+        resolve(answer);
+      });
+    });
   }
-  question(objectArr) {
-    console.log("Напишите ответ:");
-    console.log(objectArr.join(""));
-    console.log("Красачик");
+
+  question({ a }) {
+    return new Promise((resolve, reject) => {
+      readline.question(a + "\n", (answer) => {
+        resolve(answer);
+      });
+    });
   }
-  print() {}
+
+  result(bolean) {
+    if (bolean === true) console.log("Ай, Красавчик!");
+    else console.log("Ну ты мамонт...");
+  }
 }
 
 const view = new View();
