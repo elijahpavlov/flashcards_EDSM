@@ -1,29 +1,24 @@
-const { stdout } = require('process');
-const readline = require('readline')
-readline.createInterface(
-  input: process.stdin,
-  output: process.stdout,
-)
+const { stdout, rawListeners } = require("process");
+const readline = require("readline");
+const Model = require("./Model");
+// readline.createInterface(
+//   input: process.stdin,
+//   output: process.stdout,
+// )
 
 class View {
   constructor(data) {
     this.data = data;
   }
-  question()
+  topics(topicsArr) {
+    console.log("Выберите тему:\n");
+    console.log(topicsArr.join("\n"));
+  }
+  print() {}
 }
 
-topics() {
-  const data = [];
-  this.data.forEach(el => {
-    data.push(el)
-    
-  });
-}
-
-
-
-
-
-
+const view = new View();
+const model = new Model();
+view.topics(model.getTopics("./topics"));
 
 module.exports = View;
