@@ -12,7 +12,7 @@ class View {
   }
   topics(topicsArr) {
     return new Promise((resolve, reject) => {
-      readline.question("Выберите тему:\n", (answer) => {
+      readline.question("Выберите тему:\n" + topicsArr.join("\n"), (answer) => {
         resolve(answer);
       });
     });
