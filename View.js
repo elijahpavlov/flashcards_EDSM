@@ -16,6 +16,7 @@ class View {
   question(objectArr) {
     console.log("Напишите ответ:");
     console.log(objectArr.join(""));
+    console.log("Красачик");
   }
   print() {}
 }
