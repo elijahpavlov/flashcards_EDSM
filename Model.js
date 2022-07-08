@@ -7,7 +7,7 @@ class Model {
     this.scores = 0
   }
 
-  static read(path){
+  read(path){
     let result = []
     let v = fs.readFileSync(path, 'UTF-8').split('\n')
     for (let i = 0; i < v.length; i++) {
@@ -16,7 +16,7 @@ class Model {
     return result    
   }
 
-  static getTopics(path){
+  getTopics(path){
     return fs.readdirSync(path)
   }
  }
@@ -24,6 +24,4 @@ class Model {
 
 const model = new Model()
 // console.log(model.read('./topics/nighthawk_flashcard_data.txt'))
-console.log(Model.read('./topics/nighthawk_flashcard_data.txt'))
-console.log(Model.getTopics('./topics'))
 module.exports = Model
