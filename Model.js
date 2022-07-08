@@ -7,14 +7,21 @@ class Model {
     this.scores = 0
   }
   read(path){
-  fs.readFile(path, 'UTF-8',(err, data)=>{
-if(err) throw new   Error('без грубостей')
-console.log(data);
-  }); 
- 
- 
- }  
-}
+    let v= []
+    fs.readFile(path, 'UTF-8',(err, data)=>{
+      if(err) throw new   Error('без грубостей')
+      v = data.split('\n')
+      let result = []
+      for (let i = 0; i < v.length; i++) {
+        if (i % 2 ===0) result.push({q: v[i], a: v[i + 1]}) 
+      }
+      console.log(result)
+    })
+    
+    }
+ }
+
+
 const model = new Model()
 model.read('./topics/nighthawk_flashcard_data.txt')
 module.exports = Model
